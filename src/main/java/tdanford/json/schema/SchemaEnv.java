@@ -1,16 +1,18 @@
 package tdanford.json.schema;
 
-import java.util.*;
-import java.util.regex.*;
-import java.io.*;
+import java.io.File;
+import java.io.FilenameFilter;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class SchemaEnv {
-
-    public static Logger LOG = Logger.getLogger(SchemaEnv.class);
 
     public static void main(String[] args) {
 		File dir = new File(args[0]);
@@ -39,7 +41,6 @@ public class SchemaEnv {
 	
 	public SchemaEnv(File dir) { 
 		this();
-        LOG.debug(String.format("parsing sschemas in %s", dir.getAbsolutePath()));
 
 		File[] lst = dir.listFiles(new FilenameFilter() {
 			public boolean accept(File dir, String name) {
@@ -51,7 +52,6 @@ public class SchemaEnv {
 		
 		for(File jsFile : lst) { 
 			Matcher jsMatcher = jsFilenamePattern.matcher(jsFile.getName());
-            LOG.debug(String.format("Loading schema in %s", jsFile.getName()));
 
 			if(jsMatcher.matches()) { 
 				String typeName = jsMatcher.group(1);
